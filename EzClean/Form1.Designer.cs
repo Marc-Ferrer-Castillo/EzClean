@@ -28,15 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EzClean));
+            this.btnClean = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.btnClean)).BeginInit();
             this.SuspendLayout();
+            // 
+            // btnClean
+            // 
+            this.btnClean.BackColor = System.Drawing.Color.Transparent;
+            this.btnClean.Location = new System.Drawing.Point(233, 127);
+            this.btnClean.Name = "btnClean";
+            this.btnClean.Size = new System.Drawing.Size(254, 253);
+            this.btnClean.TabIndex = 0;
+            this.btnClean.TabStop = false;
+            this.btnClean.Click += new System.EventHandler(this.btnClean_Click);
             // 
             // EzClean
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
-            this.ClientSize = new System.Drawing.Size(704, 461);
+            this.BackgroundImage = global::EzClean.Properties.Resources.buttonUnpressed;
+            this.ClientSize = new System.Drawing.Size(720, 500);
+            this.Controls.Add(this.btnClean);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximumSize = new System.Drawing.Size(720, 500);
             this.MinimumSize = new System.Drawing.Size(720, 500);
@@ -44,11 +56,14 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.EzClean_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.btnClean)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.PictureBox btnClean;
     }
 }
 
