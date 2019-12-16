@@ -118,7 +118,7 @@ namespace EzClean
                 {
                     foreach (FileInfo file in dir.GetFiles())
                     {
-                        //File.SetAttributes(file.ToString(), FileAttributes.Normal);
+                        File.SetAttributes(file.ToString(), FileAttributes.Normal);
                         file.Delete();
                         // Stores size from every file                   
                         freedSpace += file.Length;
