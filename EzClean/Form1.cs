@@ -14,49 +14,27 @@ namespace EzClean
 {
     public partial class EzClean : Form
     {
-        /*** 
-        *     ██████╗ ██████╗ ███╗   ██╗███████╗████████╗ █████╗ ███╗   ██╗████████╗███████╗
-        *    ██╔════╝██╔═══██╗████╗  ██║██╔════╝╚══██╔══╝██╔══██╗████╗  ██║╚══██╔══╝██╔════╝
-        *    ██║     ██║   ██║██╔██╗ ██║███████╗   ██║   ███████║██╔██╗ ██║   ██║   ███████╗
-        *    ██║     ██║   ██║██║╚██╗██║╚════██║   ██║   ██╔══██║██║╚██╗██║   ██║   ╚════██║
-        *    ╚██████╗╚██████╔╝██║ ╚████║███████║   ██║   ██║  ██║██║ ╚████║   ██║   ███████║
-        *     ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝
-        *                                                                                           
-        */
+       
 
         // Constantes needed to move the window
         private const int WM_NCHITTEST = 0x84;
         private const int HT_CLIENT = 0x1;
         private const int HT_CAPTION = 0x2;
 
-        //  import the Shell32.dll
+        //  import Shell32.dll
         [DllImport("Shell32.dll", CharSet = CharSet.Unicode)]
         static extern uint SHEmptyRecycleBin(IntPtr hwnd, string pszRootPath, RecycleFlags dwFlags);
         
-        /*** Attributes 
-        *     █████╗ ████████╗██████╗ ██╗██████╗ ██╗   ██╗████████╗ ██████╗ ███████╗
-        *    ██╔══██╗╚══██╔══╝██╔══██╗██║██╔══██╗██║   ██║╚══██╔══╝██╔═══██╗██╔════╝
-        *    ███████║   ██║   ██████╔╝██║██████╔╝██║   ██║   ██║   ██║   ██║███████╗
-        *    ██╔══██║   ██║   ██╔══██╗██║██╔══██╗██║   ██║   ██║   ██║   ██║╚════██║
-        *    ██║  ██║   ██║   ██║  ██║██║██████╔╝╚██████╔╝   ██║   ╚██████╔╝███████║
-        *    ╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═════╝  ╚═════╝    ╚═╝    ╚═════╝ ╚══════╝
-        *                                                                           
-        */
-
+       
+        // total Space cleared
         long freedSpace = 0;
+        // Drive letter 
         string driveLetter = Path.GetPathRoot(Environment.CurrentDirectory);
+        // user folder
         string userFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile).ToString();
 
-        /***
-        *     ██████╗ ██████╗ ███╗   ██╗███████╗████████╗██████╗ ██╗   ██╗ ██████╗████████╗ ██████╗ ██████╗ ███████╗
-        *    ██╔════╝██╔═══██╗████╗  ██║██╔════╝╚══██╔══╝██╔══██╗██║   ██║██╔════╝╚══██╔══╝██╔═══██╗██╔══██╗██╔════╝
-        *    ██║     ██║   ██║██╔██╗ ██║███████╗   ██║   ██████╔╝██║   ██║██║        ██║   ██║   ██║██████╔╝███████╗
-        *    ██║     ██║   ██║██║╚██╗██║╚════██║   ██║   ██╔══██╗██║   ██║██║        ██║   ██║   ██║██╔══██╗╚════██║
-        *    ╚██████╗╚██████╔╝██║ ╚████║███████║   ██║   ██║  ██║╚██████╔╝╚██████╗   ██║   ╚██████╔╝██║  ██║███████║
-        *     ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝  ╚═════╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚══════╝
-        *                                                                                                                   
-        */
-
+        
+        // Constructor
         public EzClean()
         {
             InitializeComponent();
@@ -66,18 +44,11 @@ namespace EzClean
         {
             SHRB_NOCONFIRMATION = 0x00000001, // Don't ask confirmation
             SHRB_NOPROGRESSUI = 0x00000002, // Don't show any windows dialog
-            SHRB_NOSOUND = 0x00000004 // Don't make sound, ninja mode enabled :v
+            SHRB_NOSOUND = 0x00000004 // Don't make sound
         }
 
 
-        /*    EVENTS
-         *    ███████╗██╗   ██╗ ███████╗ ███╗   ██╗████████╗███████╗
-         *    ██╔════╝██║   ██║ ██╔════╝ ████╗  ██║╚══██╔══╝██╔════╝
-         *    █████╗  ██║   ██║ █████╗   ██╔██╗ ██║   ██║   ███████╗
-         *    ██╔══╝  ╚██╗ ██╔╝ ██╔══╝   ██║╚██╗██║   ██║   ╚════██║
-         *    ███████╗ ╚████╔╝  ███████╗ ██║ ╚████║   ██║   ███████║
-         *    ╚══════╝  ╚═══╝   ╚══════╝ ╚═╝  ╚═══╝   ╚═╝   ╚══════╝                                                                 
-         */
+        
 
 
 
@@ -101,47 +72,35 @@ namespace EzClean
             // Changes button image
             this.BackgroundImage = Properties.Resources.MainScreen;
 
+            // Cleaning function
             clean();
+
+            // Shows the space cleared into the label
+            btnResult.Text = freedSpace + " bytes cleared.";
+
+            // Changes button image
+            this.BackgroundImage = Properties.Resources.buttonUnpressed;
         }
         
         private void clean()
         {
-
             try
             {
                 // Cleans Recycle Bin
                 uint IsSuccess = SHEmptyRecycleBin(IntPtr.Zero, null, RecycleFlags.SHRB_NOCONFIRMATION);
+                               
                 
-                DirectoryInfo directory = new DirectoryInfo(userFolder + "\\AppData\\Local\\Temp");
+                var dir = new DirectoryInfo ( userFolder + "\\temp");
+                var dir2 = new DirectoryInfo( userFolder + "\\AppData\\Local\\Temp" );
 
-                foreach (DirectoryInfo dir in directory.GetDirectories())
-                {
-                    foreach (FileInfo file in dir.GetFiles())
-                    {
-                        File.SetAttributes(file.ToString(), FileAttributes.Normal);
-                        file.Delete();
-                        // Stores size from every file                   
-                        freedSpace += file.Length;
-                    }
-
-                }
-                foreach (FileInfo file in directory.GetFiles())
-                {
-
-                    freedSpace += file.Length;
-                    // file.Delete();
-
-                }
-                MessageBox.Show(freedSpace + " bytes cleared.");
-
-
-
+                dir.Delete(true);
+                dir2.Delete(true);
 
             }
             catch (Exception ex)
             {
                 // Handle exceptions
-                MessageBox.Show(ex.Message, "Error while clearing", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show(ex.Message, "Error while cleaning", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
             
             
