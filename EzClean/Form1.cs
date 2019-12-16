@@ -84,20 +84,29 @@ namespace EzClean
                 List<DirectoryInfo> dirsToClear = new List<DirectoryInfo>();
 
                 // Directories to be cleared
-                DirectoryInfo dir = new DirectoryInfo ( userFolder   + "\\temp");
-                DirectoryInfo dir2 = new DirectoryInfo( DRIVERLETTER + "\\temp" );
-                DirectoryInfo dir3 = new DirectoryInfo( DRIVERLETTER + "\\Windows\\SoftwareDistribution");
-                DirectoryInfo dir4 = new DirectoryInfo( userFolder + "\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files");
-                DirectoryInfo dir5 = new DirectoryInfo( userFolder + "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cache");
-                DirectoryInfo dir6 = new DirectoryInfo( DRIVERLETTER + "\\Windows.old");
+                DirectoryInfo dir   = new DirectoryInfo ( userFolder   + "\\temp");
+                DirectoryInfo dir2  = new DirectoryInfo( DRIVERLETTER + "\\temp" );
+                DirectoryInfo dir3  = new DirectoryInfo( DRIVERLETTER + "\\Windows\\SoftwareDistribution");
+                DirectoryInfo dir4  = new DirectoryInfo( userFolder   + "\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files");
+                DirectoryInfo dir5  = new DirectoryInfo( userFolder   + "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cache");
+                DirectoryInfo dir6  = new DirectoryInfo( DRIVERLETTER + "\\Windows.old");
+                DirectoryInfo dir7  = new DirectoryInfo( DRIVERLETTER + "\\Windows\\LiveKernelReports");
+                DirectoryInfo dir8  = new DirectoryInfo( DRIVERLETTER + "\\Windows\\Prefetch");
+                DirectoryInfo dir9  = new DirectoryInfo( DRIVERLETTER + "\\ProgramData\\Microsoft\\Windows\\WER");
+                DirectoryInfo dir10 = new DirectoryInfo(DRIVERLETTER + "\\Windows\\Minidump");
 
-                // Adding dirs to dirsToClear list
+                // Adding dirs to dirsToClear list   
                 dirsToClear.Add(dir);
                 dirsToClear.Add(dir2);
                 dirsToClear.Add(dir3);
                 dirsToClear.Add(dir4);
                 dirsToClear.Add(dir5);
                 dirsToClear.Add(dir6);
+                dirsToClear.Add(dir7);
+                dirsToClear.Add(dir8);
+                dirsToClear.Add(dir9);
+                dirsToClear.Add(dir10);
+
 
 
 
