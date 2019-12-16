@@ -20,15 +20,13 @@ namespace EzClean
         private const int WM_NCHITTEST = 0x84;
         private const int HT_CLIENT = 0x1;
         private const int HT_CAPTION = 0x2;
+
         // Drive letter 
         const string DRIVERLETTER = "c:";
 
         //  import Shell32.dll
         [DllImport("Shell32.dll", CharSet = CharSet.Unicode)]
         static extern uint SHEmptyRecycleBin(IntPtr hwnd, string pszRootPath, RecycleFlags dwFlags);
-       
-        // total Space cleared
-        long freedSpace = 0;
         
         // user folder
         string userFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile).ToString();
@@ -70,8 +68,10 @@ namespace EzClean
             this.BackgroundImage = Properties.Resources.MainScreen;
 
             // Cleaning function
-            clean();           
+            clean();
 
+            //Changes label text
+            labelDir.Text = "";
             // Changes button image
             this.BackgroundImage = Properties.Resources.buttonUnpressed;
         }
@@ -82,16 +82,22 @@ namespace EzClean
             {    
                 // Dirs to clear list
                 List<DirectoryInfo> dirsToClear = new List<DirectoryInfo>();
-                
+
                 // Directories to be cleared
-                var dir = new DirectoryInfo ( userFolder + "\\temp");
-                var dir2 = new DirectoryInfo( DRIVERLETTER + "\\temp" );
-                var dir3 = new DirectoryInfo(DRIVERLETTER + "\\Windows\\SoftwareDistribution");
+                DirectoryInfo dir = new DirectoryInfo ( userFolder   + "\\temp");
+                DirectoryInfo dir2 = new DirectoryInfo( DRIVERLETTER + "\\temp" );
+                DirectoryInfo dir3 = new DirectoryInfo( DRIVERLETTER + "\\Windows\\SoftwareDistribution");
+                DirectoryInfo dir4 = new DirectoryInfo( userFolder + "\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files");
+                DirectoryInfo dir5 = new DirectoryInfo( userFolder + "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cache");
+                DirectoryInfo dir6 = new DirectoryInfo( DRIVERLETTER + "\\Windows.old");
 
                 // Adding dirs to dirsToClear list
                 dirsToClear.Add(dir);
                 dirsToClear.Add(dir2);
                 dirsToClear.Add(dir3);
+                dirsToClear.Add(dir4);
+                dirsToClear.Add(dir5);
+                dirsToClear.Add(dir6);
 
 
 
@@ -105,6 +111,7 @@ namespace EzClean
                     // Empties it
                     try
                     {
+                        labelDir.Text = item.ToString();
                         emptyDir(item);
                     }
                     catch (Exception){}
