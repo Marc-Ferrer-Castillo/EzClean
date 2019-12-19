@@ -32,6 +32,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <Win32Resource>
+    </Win32Resource>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>cleanicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CircularProgressBar, Version=2.7.0.7, Culture=neutral, PublicKeyToken=310fd07b25df79b3, processorArchitecture=MSIL">
       <HintPath>packages\CircularProgressBar.2.7.0.7\lib\net40\CircularProgressBar.dll</HintPath>
@@ -111,6 +118,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\MainScreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="cleanicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

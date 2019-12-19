@@ -35,8 +35,7 @@ namespace EzClean
             for (int i = 0; i < directoriesToClear.Count(); i++)
             {
                 checkedListBoxDirectoriesToClear.SetItemChecked(i, directoriesToClear[i]);
-            }
-            
+            }            
         }
 
 

@@ -165,7 +165,7 @@
             this.MinimumSize = new System.Drawing.Size(720, 500);
             this.Name = "EzClean";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "EzClean by Marc Ferrer";
             this.Load += new System.EventHandler(this.EzClean_Load);
             ((System.ComponentModel.ISupportInitialize)(this.btnClean)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
