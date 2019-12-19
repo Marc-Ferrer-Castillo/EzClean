@@ -14,8 +14,6 @@ namespace EzClean
 {
     public partial class EzClean : Form
     {
-       
-
         // Constantes needed to move the window
         private const int WM_NCHITTEST = 0x84;
         private const int HT_CLIENT = 0x1;
@@ -31,12 +29,31 @@ namespace EzClean
         // user folder
         string userFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile).ToString();
 
+        // Directories that can be cleared
+        List<DirectoryInfo> totalDirectories = new List<DirectoryInfo>();       
+
+        // Directories that will be cleared
+        List<bool> directoriesToClear = new List<bool>();
+
         
+
         // Constructor
         public EzClean()
         {
             InitializeComponent();
+
+            // Fills directories with paths
+            fillDirectories();
+
+            // Fills the list with true values as many as existing paths
+            bool clear = true;
+            for (int i = 0; i < totalDirectories.Count() + 1; i++)
+            {
+                directoriesToClear.Add(clear);
+            } 
         }
+
+        
 
         enum RecycleFlags : uint
         {
@@ -79,43 +96,12 @@ namespace EzClean
         private void clean()
         {
             try
-            {    
-                // Dirs to clear list
-                List<DirectoryInfo> dirsToClear = new List<DirectoryInfo>();
-
-                // Directories to be cleared
-                DirectoryInfo dir   = new DirectoryInfo ( userFolder   + "\\temp");
-                DirectoryInfo dir2  = new DirectoryInfo( DRIVERLETTER + "\\temp" );
-                DirectoryInfo dir3  = new DirectoryInfo( DRIVERLETTER + "\\Windows\\SoftwareDistribution");
-                DirectoryInfo dir4  = new DirectoryInfo( userFolder   + "\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files");
-                DirectoryInfo dir5  = new DirectoryInfo( userFolder   + "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cache");
-                DirectoryInfo dir6  = new DirectoryInfo( DRIVERLETTER + "\\Windows.old");
-                DirectoryInfo dir7  = new DirectoryInfo( DRIVERLETTER + "\\Windows\\LiveKernelReports");
-                DirectoryInfo dir8  = new DirectoryInfo( DRIVERLETTER + "\\Windows\\Prefetch");
-                DirectoryInfo dir9  = new DirectoryInfo( DRIVERLETTER + "\\ProgramData\\Microsoft\\Windows\\WER");
-                DirectoryInfo dir10 = new DirectoryInfo(DRIVERLETTER + "\\Windows\\Minidump");
-
-                // Adding dirs to dirsToClear list   
-                dirsToClear.Add(dir);
-                dirsToClear.Add(dir2);
-                dirsToClear.Add(dir3);
-                dirsToClear.Add(dir4);
-                dirsToClear.Add(dir5);
-                dirsToClear.Add(dir6);
-                dirsToClear.Add(dir7);
-                dirsToClear.Add(dir8);
-                dirsToClear.Add(dir9);
-                dirsToClear.Add(dir10);
-
-
-
-
-
+            {        
                 // Cleans Recycle Bin
                 uint IsSuccess = SHEmptyRecycleBin(IntPtr.Zero, null, RecycleFlags.SHRB_NOCONFIRMATION);
 
                 // For each dir in dirs list
-                foreach (DirectoryInfo item in dirsToClear)
+                foreach (DirectoryInfo item in totalDirectories)
                 {
                     // Empties it
                     try
@@ -160,7 +146,36 @@ namespace EzClean
 
         private void pictureBoxSettings_Click(object sender, EventArgs e)
         {
+            Settings settings = new Settings(directoriesToClear);
 
+            settings.ShowDialog();
+        }
+
+        private void fillDirectories()
+        {
+            // Directories to be cleared
+            DirectoryInfo dir   = new DirectoryInfo(userFolder   + "\\temp");
+            DirectoryInfo dir2  = new DirectoryInfo(DRIVERLETTER + "\\temp");
+            DirectoryInfo dir3  = new DirectoryInfo(DRIVERLETTER + "\\Windows\\SoftwareDistribution");
+            DirectoryInfo dir4  = new DirectoryInfo(userFolder   + "\\AppData\\Local\\Microsoft\\Windows\\Temporary Internet Files");
+            DirectoryInfo dir5  = new DirectoryInfo(userFolder   + "\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Cache");
+            DirectoryInfo dir6  = new DirectoryInfo(DRIVERLETTER + "\\Windows.old");
+            DirectoryInfo dir7  = new DirectoryInfo(DRIVERLETTER + "\\Windows\\LiveKernelReports");
+            DirectoryInfo dir8  = new DirectoryInfo(DRIVERLETTER + "\\Windows\\Prefetch");
+            DirectoryInfo dir9  = new DirectoryInfo(DRIVERLETTER + "\\ProgramData\\Microsoft\\Windows\\WER");
+            DirectoryInfo dir10 = new DirectoryInfo(DRIVERLETTER + "\\Windows\\Minidump");
+
+            // Adding dirs to dirsToClear list   
+            totalDirectories.Add(dir);
+            totalDirectories.Add(dir2);
+            totalDirectories.Add(dir3);
+            totalDirectories.Add(dir4);
+            totalDirectories.Add(dir5);
+            totalDirectories.Add(dir6);
+            totalDirectories.Add(dir7);
+            totalDirectories.Add(dir8);
+            totalDirectories.Add(dir9);
+            totalDirectories.Add(dir10);
         }
     }
 }
