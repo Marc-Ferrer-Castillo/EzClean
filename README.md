@@ -8,7 +8,7 @@ This program clears all files and folders selected from the list.
 Windows Machine with .NETFramework (Version v4.7.2)
 
 ## Authors
-* [Marc Ferrer](https://github.com/Marc-Ferrer-Castillo)
+* [Marc Ferrer Castillo](https://github.com/Marc-Ferrer-Castillo)
 
 
 ## Main Screen Screenshots
