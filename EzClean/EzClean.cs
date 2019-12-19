@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -41,16 +42,6 @@ namespace EzClean
         public EzClean()
         {
             InitializeComponent();
-
-            // Fills directories with paths
-            fillDirectories();
-
-            // Fills the list with true values as many as existing paths
-            bool clear = true;
-            for (int i = 0; i < totalDirectories.Count() + 1; i++)
-            {
-                directoriesToClear.Add(clear);
-            } 
         }
 
         
@@ -72,46 +63,71 @@ namespace EzClean
                 m.Result = (IntPtr)(HT_CAPTION);
         }
 
-        // Load event
+        // Load
         private void EzClean_Load(object sender, EventArgs e)
         {
+            // ProgressBar to 0
+            circularProgressBar.Value = 0;
 
+            btnClean.BringToFront();
+
+            // Fills directories with paths
+            fillDirectories();
+
+            // Fills the list with true values as many as existing paths
+            bool clear = true;
+            for (int i = 0; i < totalDirectories.Count() + 1; i++)
+            {
+                directoriesToClear.Add(clear);
+            }
         }
 
         // Clean click
         private void btnClean_Click(object sender, EventArgs e)
         {
             // Changes button image
-            this.BackgroundImage = Properties.Resources.MainScreen;
+            this.BackgroundImage = Properties.Resources.MainScreen1;
 
             // Cleaning function
             clean();
 
             //Changes label text
             labelDir.Text = "";
+
             // Changes button image
-            this.BackgroundImage = Properties.Resources.buttonUnpressed;
+            this.BackgroundImage = Properties.Resources.buttonUnpressed1;
         }
         
+        // Cleans directories 
         private void clean()
         {
             try
-            {        
-                // Cleans Recycle Bin
-                uint IsSuccess = SHEmptyRecycleBin(IntPtr.Zero, null, RecycleFlags.SHRB_NOCONFIRMATION);
-
-                // For each dir in dirs list
-                foreach (DirectoryInfo item in totalDirectories)
+            {
+                if (directoriesToClear[10])
                 {
-                    // Empties it
-                    try
+                    // Cleans Recycle Bin
+                    uint IsSuccess = SHEmptyRecycleBin(IntPtr.Zero, null, RecycleFlags.SHRB_NOCONFIRMATION);
+                }
+                
+
+                // For every dir in dirs list
+                for (int i = 0; i < totalDirectories.Count(); i++)
+                {
+                    // If the position is true (checkbox from settings = true)
+                    if (directoriesToClear[i])
                     {
-                        labelDir.Text = item.ToString();
-                        emptyDir(item);
+                        try
+                        {
+                            // Method cleanDir
+                            cleanDir(totalDirectories[i]);
+                        }
+                        catch (Exception) { }
                     }
-                    catch (Exception){}
-                    
-                }                
+                    circularProgressBar.PerformStep();
+                    circularProgressBar.Refresh();
+                    label1.Text = i.ToString();
+                }
+                circularProgressBar.Value = 0;
             }
 
             catch (Exception ex)
@@ -120,8 +136,8 @@ namespace EzClean
                 MessageBox.Show(ex.Message, "Error while cleaning", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }           
         }
-
-        private void emptyDir(DirectoryInfo dir)
+        // Deletes all folders and files inside a directory
+        private void cleanDir(DirectoryInfo dir)
         {     
             foreach (FileInfo file in dir.GetFiles())
             {
@@ -144,13 +160,15 @@ namespace EzClean
             this.Close();
         }
 
+        // Click in settings
         private void pictureBoxSettings_Click(object sender, EventArgs e)
         {
+            // Opens settings
             Settings settings = new Settings(directoriesToClear);
-
             settings.ShowDialog();
         }
 
+        // Fills totalDirectories list with paths to be cleared
         private void fillDirectories()
         {
             // Directories to be cleared
@@ -177,5 +195,6 @@ namespace EzClean
             totalDirectories.Add(dir9);
             totalDirectories.Add(dir10);
         }
+        
     }
 }

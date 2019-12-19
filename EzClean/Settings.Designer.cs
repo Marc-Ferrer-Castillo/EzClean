@@ -31,6 +31,7 @@
             this.pictureBoxCloseSettings = new System.Windows.Forms.PictureBox();
             this.pictureBoxClose = new System.Windows.Forms.PictureBox();
             this.checkedListBoxDirectoriesToClear = new System.Windows.Forms.CheckedListBox();
+            this.labelSettings = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCloseSettings)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
             this.SuspendLayout();
@@ -80,18 +81,31 @@
             "WER",
             "Minidump",
             "Recycle Bin"});
-            this.checkedListBoxDirectoriesToClear.Location = new System.Drawing.Point(26, 119);
+            this.checkedListBoxDirectoriesToClear.Location = new System.Drawing.Point(12, 112);
             this.checkedListBoxDirectoriesToClear.Name = "checkedListBoxDirectoriesToClear";
-            this.checkedListBoxDirectoriesToClear.Size = new System.Drawing.Size(656, 297);
+            this.checkedListBoxDirectoriesToClear.Size = new System.Drawing.Size(291, 297);
             this.checkedListBoxDirectoriesToClear.TabIndex = 1;
             this.checkedListBoxDirectoriesToClear.SelectedIndexChanged += new System.EventHandler(this.checkedListBoxDirectoriesToClear_SelectedIndexChanged);
+            // 
+            // labelSettings
+            // 
+            this.labelSettings.AutoSize = true;
+            this.labelSettings.Font = new System.Drawing.Font("Cambria", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSettings.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.labelSettings.Location = new System.Drawing.Point(272, 27);
+            this.labelSettings.Name = "labelSettings";
+            this.labelSettings.Size = new System.Drawing.Size(177, 41);
+            this.labelSettings.TabIndex = 5;
+            this.labelSettings.Text = "SETTINGS";
             // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.BackgroundImage = global::EzClean.Properties.Resources.settingsBackground;
             this.ClientSize = new System.Drawing.Size(720, 500);
+            this.Controls.Add(this.labelSettings);
             this.Controls.Add(this.checkedListBoxDirectoriesToClear);
             this.Controls.Add(this.pictureBoxCloseSettings);
             this.Controls.Add(this.pictureBoxClose);
@@ -104,6 +118,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCloseSettings)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -112,5 +127,6 @@
         private System.Windows.Forms.PictureBox pictureBoxClose;
         private System.Windows.Forms.PictureBox pictureBoxCloseSettings;
         private System.Windows.Forms.CheckedListBox checkedListBoxDirectoriesToClear;
+        private System.Windows.Forms.Label labelSettings;
     }
 }
