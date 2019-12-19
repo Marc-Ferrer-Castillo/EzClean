@@ -69,6 +69,7 @@ namespace EzClean
             // ProgressBar to 0
             circularProgressBar.Value = 0;
 
+            // Brings btnClean to front
             btnClean.BringToFront();
 
             // Fills directories with paths
@@ -85,17 +86,26 @@ namespace EzClean
         // Clean click
         private void btnClean_Click(object sender, EventArgs e)
         {
+            // Brings progress bar to front
+            circularProgressBar.BringToFront();
+
+            // Progress bar to 0
+            circularProgressBar.Value = 0;
+
             // Changes button image
-            this.BackgroundImage = Properties.Resources.MainScreen1;
+            this.BackgroundImage = Properties.Resources.MainScreen;
 
             // Cleaning function
             clean();
 
-            //Changes label text
-            labelDir.Text = "";
+            // Cleaning finished
+            progress.Text = "Finished";
+
+            // Sends progress bar to back
+            circularProgressBar.SendToBack();
 
             // Changes button image
-            this.BackgroundImage = Properties.Resources.buttonUnpressed1;
+            this.BackgroundImage = Properties.Resources.buttonUnpressed;
         }
         
         // Cleans directories 
@@ -123,11 +133,13 @@ namespace EzClean
                         }
                         catch (Exception) { }
                     }
+                    // Progress bar advance and refresh
                     circularProgressBar.PerformStep();
                     circularProgressBar.Refresh();
-                    label1.Text = i.ToString();
+                    // Shows progress into the label
+                    progress.Text = i.ToString() + "0 %";                    
                 }
-                circularProgressBar.Value = 0;
+                
             }
 
             catch (Exception ex)

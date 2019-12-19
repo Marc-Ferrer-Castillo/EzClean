@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,13 +27,11 @@ namespace EzClean
         // Directories to clear
         List<bool> directoriesToClear;
         
-
         // Constructor
         public Settings(List<bool> dirsToClear)
         {            
             InitializeComponent();
             this.directoriesToClear = dirsToClear;
-
             for (int i = 0; i < directoriesToClear.Count(); i++)
             {
                 checkedListBoxDirectoriesToClear.SetItemChecked(i, directoriesToClear[i]);
