@@ -30,7 +30,11 @@
         {
             this.btnClean = new System.Windows.Forms.PictureBox();
             this.labelDir = new System.Windows.Forms.Label();
+            this.pictureBoxClose = new System.Windows.Forms.PictureBox();
+            this.pictureBoxSettings = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.btnClean)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSettings)).BeginInit();
             this.SuspendLayout();
             // 
             // btnClean
@@ -53,12 +57,38 @@
             this.labelDir.Size = new System.Drawing.Size(0, 13);
             this.labelDir.TabIndex = 1;
             // 
+            // pictureBoxClose
+            // 
+            this.pictureBoxClose.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxClose.Image = global::EzClean.Properties.Resources.exit;
+            this.pictureBoxClose.Location = new System.Drawing.Point(644, 12);
+            this.pictureBoxClose.Name = "pictureBoxClose";
+            this.pictureBoxClose.Size = new System.Drawing.Size(64, 56);
+            this.pictureBoxClose.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxClose.TabIndex = 2;
+            this.pictureBoxClose.TabStop = false;
+            this.pictureBoxClose.Click += new System.EventHandler(this.pictureBoxClose_Click);
+            // 
+            // pictureBoxSettings
+            // 
+            this.pictureBoxSettings.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxSettings.Image = global::EzClean.Properties.Resources.settings;
+            this.pictureBoxSettings.Location = new System.Drawing.Point(590, 12);
+            this.pictureBoxSettings.Name = "pictureBoxSettings";
+            this.pictureBoxSettings.Size = new System.Drawing.Size(48, 56);
+            this.pictureBoxSettings.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxSettings.TabIndex = 3;
+            this.pictureBoxSettings.TabStop = false;
+            this.pictureBoxSettings.Click += new System.EventHandler(this.pictureBoxSettings_Click);
+            // 
             // EzClean
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::EzClean.Properties.Resources.buttonUnpressed;
             this.ClientSize = new System.Drawing.Size(720, 500);
+            this.Controls.Add(this.pictureBoxSettings);
+            this.Controls.Add(this.pictureBoxClose);
             this.Controls.Add(this.labelDir);
             this.Controls.Add(this.btnClean);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -69,6 +99,8 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.EzClean_Load);
             ((System.ComponentModel.ISupportInitialize)(this.btnClean)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxClose)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSettings)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -78,6 +110,8 @@
 
         private System.Windows.Forms.PictureBox btnClean;
         private System.Windows.Forms.Label labelDir;
+        private System.Windows.Forms.PictureBox pictureBoxClose;
+        private System.Windows.Forms.PictureBox pictureBoxSettings;
     }
 }
 

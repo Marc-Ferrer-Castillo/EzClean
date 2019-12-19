@@ -150,5 +150,17 @@ namespace EzClean
                 catch (Exception){}                    
             }                        
         }
+
+        // Close program
+        private void pictureBoxClose_Click(object sender, EventArgs e)
+        {
+            // Close program
+            this.Close();
+        }
+
+        private void pictureBoxSettings_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
